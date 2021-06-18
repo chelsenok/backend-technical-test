@@ -17,6 +17,11 @@ public class HolderValidator implements Validator<Holder> {
 
     @Override
     public void validate(Holder obj, List<String> errorCollector) {
+        if (obj == null) {
+            errorCollector.add("holder can not be null");
+            return;
+        }
+
         if (StringUtils.isBlank(obj.getName())) {
             errorCollector.add("name can not be blank");
         }

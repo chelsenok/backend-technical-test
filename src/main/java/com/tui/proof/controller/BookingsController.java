@@ -3,6 +3,7 @@ package com.tui.proof.controller;
 import com.tui.proof.model.Booking;
 import com.tui.proof.model.BookingRequest;
 import com.tui.proof.service.SecurityService;
+import com.tui.proof.validation.ValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,9 +25,11 @@ import java.util.UUID;
 public class BookingsController {
 
     private final SecurityService securityService;
+    private final ValidationService validationService;
 
     @PostMapping
     public ResponseEntity<Booking> createBooking(@RequestBody BookingRequest bookingRequest) {
+        validationService.validate(bookingRequest);
         return null;
     }
 

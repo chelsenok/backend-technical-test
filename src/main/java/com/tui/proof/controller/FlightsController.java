@@ -3,6 +3,8 @@ package com.tui.proof.controller;
 import com.tui.proof.model.Flight;
 import com.tui.proof.model.FlightAvailability;
 import com.tui.proof.model.FlightAvailabilityRequest;
+import com.tui.proof.validation.ValidationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +18,10 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "${v1API}/flights")
+@RequiredArgsConstructor
 public class FlightsController {
+
+    private final ValidationService validationService;
 
     @GetMapping
     public ResponseEntity<List<Flight>> getAllFlights() {
@@ -31,6 +36,7 @@ public class FlightsController {
     @PostMapping("/availabilities")
     public ResponseEntity<List<FlightAvailability>> checkFlightAvailability(
             @RequestBody FlightAvailabilityRequest flightAvailabilityRequest) {
+        validationService.validate(flightAvailabilityRequest);
         return null;
     }
 }

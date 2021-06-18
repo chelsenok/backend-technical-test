@@ -16,6 +16,11 @@ public class FlightAvailabilityValidator implements Validator<FlightAvailability
 
     @Override
     public void validate(FlightAvailabilityRequest obj, List<String> errorCollector) {
+        if (obj == null) {
+            errorCollector.add("flight availability can not be null");
+            return;
+        }
+
         if (StringUtils.isBlank(obj.getAirportOrigin())) {
             errorCollector.add("airport of origin can not be blank");
         }

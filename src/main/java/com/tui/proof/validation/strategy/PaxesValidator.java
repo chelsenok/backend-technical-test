@@ -15,6 +15,11 @@ public class PaxesValidator implements Validator<Paxes> {
 
     @Override
     public void validate(Paxes obj, List<String> errorCollector) {
+        if (obj == null) {
+            errorCollector.add("paxes can not be null");
+            return;
+        }
+
         if (obj.getInfants() < 0) {
             errorCollector.add("count of infants can not be negative");
         }
