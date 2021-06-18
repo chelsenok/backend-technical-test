@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public class Booking {
 
     private UUID uuid;
     private Holder holder;
-    private List<UUID> flights;
+    private List<UUID> flights = new ArrayList<>();
 
     @Override
     public String toString() {

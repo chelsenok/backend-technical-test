@@ -2,6 +2,7 @@ package com.tui.proof.controller;
 
 import com.tui.proof.model.Booking;
 import com.tui.proof.model.BookingRequest;
+import com.tui.proof.service.BookingService;
 import com.tui.proof.service.SecurityService;
 import com.tui.proof.validation.ValidationService;
 import lombok.RequiredArgsConstructor;
@@ -20,17 +21,18 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "${v1API}/bookings")
+@RequestMapping(path = "${api.v1}/bookings")
 @RequiredArgsConstructor
 public class BookingController {
 
+    private final BookingService bookingService;
     private final SecurityService securityService;
     private final ValidationService validationService;
 
     @PostMapping
     public ResponseEntity<Booking> createBooking(@RequestBody BookingRequest bookingRequest) {
         validationService.validate(bookingRequest);
-        return null;
+        return ResponseEntity.ok(bookingService.createBooking(bookingRequest));
     }
 
     @GetMapping

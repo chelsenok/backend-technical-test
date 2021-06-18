@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "${v1API}/flights")
+@RequestMapping(path = "${api.v1}/flights")
 @RequiredArgsConstructor
 public class FlightController {
 

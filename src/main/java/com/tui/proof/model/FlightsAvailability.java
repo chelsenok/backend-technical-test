@@ -2,19 +2,21 @@ package com.tui.proof.model;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.UUID;
 
-@Data
+@Getter
+@Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class FlightsAvailability {
 
-    private UUID availabilityUuid;
-    private Flight flight;
+    private final UUID availabilityUuid;
+    private final Flight flight;
 
     @Override
     public String toString() {

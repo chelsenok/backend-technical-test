@@ -20,7 +20,7 @@ public class AuthorizationFilter implements Filter {
 
     private final SecurityService securityService;
 
-    @Value("${authorization.header}")
+    @Value("${api.authorization.header}")
     private String authorizationHeader;
 
     @Override

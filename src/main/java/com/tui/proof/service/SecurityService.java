@@ -15,7 +15,7 @@ public class SecurityService {
 
     private static final ThreadLocal<User> currentUser = new ThreadLocal<>();
 
-    @Value("#{${authorization.tokens}}")
+    @Value("#{${api.authorization.tokens}}")
     private Map<Role, String> authorizationTokens;
 
     public boolean authenticate(String token) {
