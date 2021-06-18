@@ -1,8 +1,10 @@
 package com.tui.proof.controller;
 
 import com.tui.proof.model.Flight;
-import com.tui.proof.model.FlightAvailability;
-import com.tui.proof.model.FlightAvailabilityRequest;
+import com.tui.proof.model.FlightsAvailability;
+import com.tui.proof.model.FlightsAvailabilityRequest;
+import com.tui.proof.service.FlightService;
+import com.tui.proof.service.FlightsAvailabilityService;
 import com.tui.proof.validation.ValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,24 +21,26 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "${v1API}/flights")
 @RequiredArgsConstructor
-public class FlightsController {
+public class FlightController {
 
+    private final FlightService flightService;
     private final ValidationService validationService;
+    private final FlightsAvailabilityService flightsAvailabilityService;
 
     @GetMapping
     public ResponseEntity<List<Flight>> getAllFlights() {
-        return null;
+        return ResponseEntity.ok(flightService.getAllFlights());
     }
 
     @GetMapping("/{uuid}")
     public ResponseEntity<Flight> getFlight(@PathVariable UUID uuid) {
-        return null;
+        return ResponseEntity.ok(flightService.getFlight(uuid));
     }
 
-    @PostMapping("/availabilities")
-    public ResponseEntity<List<FlightAvailability>> checkFlightAvailability(
-            @RequestBody FlightAvailabilityRequest flightAvailabilityRequest) {
-        validationService.validate(flightAvailabilityRequest);
-        return null;
+    @PostMapping("/search_availabilities")
+    public ResponseEntity<List<FlightsAvailability>> searchFlightsAvailabilities(
+            @RequestBody FlightsAvailabilityRequest flightsAvailabilityRequest) {
+        validationService.validate(flightsAvailabilityRequest);
+        return ResponseEntity.ok(flightsAvailabilityService.searchFlightsAvailabilities(flightsAvailabilityRequest));
     }
 }

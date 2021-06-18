@@ -22,7 +22,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "${v1API}/bookings")
 @RequiredArgsConstructor
-public class BookingsController {
+public class BookingController {
 
     private final SecurityService securityService;
     private final ValidationService validationService;

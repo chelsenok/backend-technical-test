@@ -1,21 +1,21 @@
 package com.tui.proof.validation.strategy;
 
-import com.tui.proof.model.FlightAvailabilityRequest;
+import com.tui.proof.model.FlightsAvailabilityRequest;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-public class FlightAvailabilityValidator implements Validator<FlightAvailabilityRequest> {
+public class FlightsAvailabilityValidator implements Validator<FlightsAvailabilityRequest> {
 
-    private FlightAvailabilityValidator() {
+    private FlightsAvailabilityValidator() {
     }
 
-    public static FlightAvailabilityValidator getInstance() {
-        return BillPughSingleton.FLIGHT_AVAILABILITY_VALIDATOR_INSTANCE;
+    public static FlightsAvailabilityValidator getInstance() {
+        return BillPughSingleton.FLIGHTS_AVAILABILITY_VALIDATOR_INSTANCE;
     }
 
     @Override
-    public void validate(FlightAvailabilityRequest obj, List<String> errorCollector) {
+    public void validate(FlightsAvailabilityRequest obj, List<String> errorCollector) {
         if (obj == null) {
             errorCollector.add("flight availability can not be null");
             return;
@@ -37,6 +37,6 @@ public class FlightAvailabilityValidator implements Validator<FlightAvailability
     }
 
     private static class BillPughSingleton {
-        private static final FlightAvailabilityValidator FLIGHT_AVAILABILITY_VALIDATOR_INSTANCE = new FlightAvailabilityValidator();
+        private static final FlightsAvailabilityValidator FLIGHTS_AVAILABILITY_VALIDATOR_INSTANCE = new FlightsAvailabilityValidator();
     }
 }

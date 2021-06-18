@@ -1,6 +1,5 @@
 package com.tui.proof.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
@@ -8,19 +7,14 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class FlightAvailabilityRequest {
+public class FlightsAvailability {
 
-    private String airportOrigin;
-    private String airportDestination;
-    @JsonFormat(pattern = "YYYY-MM-dd")
-    private LocalDate dateFrom;
-    @JsonFormat(pattern = "YYYY-MM-dd")
-    private LocalDate dateTo;
-    private Paxes paxes;
+    private UUID availabilityUuid;
+    private Flight flight;
 
     @Override
     public String toString() {
@@ -34,7 +28,7 @@ public class FlightAvailabilityRequest {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof FlightAvailabilityRequest) {
+        if (obj instanceof FlightsAvailability) {
             return EqualsBuilder.reflectionEquals(this, obj);
         }
         return false;

@@ -32,6 +32,10 @@ public class SecurityService {
         return true;
     }
 
+    public void assertUserAuthorized() {
+        getCurrentUserOrThrowUnauthorizedException();
+    }
+
     public void assertCurrentUserAdmin() {
         User currentUser = getCurrentUserOrThrowUnauthorizedException();
         if (!currentUser.getRole().equals(Role.ADMIN)) {

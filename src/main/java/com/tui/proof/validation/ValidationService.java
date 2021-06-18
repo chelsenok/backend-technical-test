@@ -2,11 +2,11 @@ package com.tui.proof.validation;
 
 import com.tui.proof.exception.BadRequestException;
 import com.tui.proof.model.BookingRequest;
-import com.tui.proof.model.FlightAvailabilityRequest;
+import com.tui.proof.model.FlightsAvailabilityRequest;
 import com.tui.proof.model.Holder;
 import com.tui.proof.model.Paxes;
 import com.tui.proof.validation.strategy.BookingValidator;
-import com.tui.proof.validation.strategy.FlightAvailabilityValidator;
+import com.tui.proof.validation.strategy.FlightsAvailabilityValidator;
 import com.tui.proof.validation.strategy.HolderValidator;
 import com.tui.proof.validation.strategy.PaxesValidator;
 import org.springframework.stereotype.Service;
@@ -26,8 +26,8 @@ public class ValidationService {
             HolderValidator.getInstance().validate((Holder) obj, errorCollector);
         } else if (obj instanceof BookingRequest) {
             BookingValidator.getInstance().validate((BookingRequest) obj, errorCollector);
-        } else if (obj instanceof FlightAvailabilityRequest) {
-            FlightAvailabilityValidator.getInstance().validate((FlightAvailabilityRequest) obj, errorCollector);
+        } else if (obj instanceof FlightsAvailabilityRequest) {
+            FlightsAvailabilityValidator.getInstance().validate((FlightsAvailabilityRequest) obj, errorCollector);
         } else {
             throw new UnsupportedOperationException("Passed object is not supported for validation");
         }
