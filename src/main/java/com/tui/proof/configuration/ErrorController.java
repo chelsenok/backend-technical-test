@@ -1,46 +1,49 @@
 package com.tui.proof.configuration;
 
+import com.tui.proof.exception.BadRequestException;
 import com.tui.proof.exception.ExceptionDto;
 import com.tui.proof.exception.ForbiddenException;
 import com.tui.proof.exception.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
 @RestControllerAdvice
 public class ErrorController {
 
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<ExceptionDto> unauthorizedException(UnauthorizedException exception) {
-        return buildResponseEntity(exception.getMessage(), HttpStatus.UNAUTHORIZED);
+        return buildResponseEntity(Collections.singletonList(exception.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(ForbiddenException.class)
     public ResponseEntity<ExceptionDto> forbiddenException(ForbiddenException exception) {
-        return buildResponseEntity(exception.getMessage(), HttpStatus.FORBIDDEN);
+        return buildResponseEntity(Collections.singletonList(exception.getMessage()), HttpStatus.FORBIDDEN);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ExceptionDto> methodArgumentNotValidException(MethodArgumentNotValidException throwable) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Error occurs with request parameters: ");
-        throwable.getBindingResult().getFieldErrors()
-                .forEach(t -> sb.append(String.format("'%s' - %s ,", t.getField(), t.getDefaultMessage())));
-        String s = sb.toString();
-        String message = s.substring(0, s.length() - 2).concat(".");
-        return buildResponseEntity(message, HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ExceptionDto> badRequestException(BadRequestException exception) {
+        return buildResponseEntity(exception.getMessages(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionDto> exception(Exception exception) {
-        return buildResponseEntity(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return buildResponseEntity(Collections.singletonList(exception.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private ResponseEntity<ExceptionDto> buildResponseEntity(String message, HttpStatus httpStatus) {
+    private ResponseEntity<ExceptionDto> buildResponseEntity(List<String> messages, HttpStatus httpStatus) {
+        ExceptionDto exceptionDto = ExceptionDto.builder()
+                .messages(messages)
+                .status(httpStatus.value())
+                .timestamp(LocalDateTime.now())
+                .build();
         return ResponseEntity
                 .status(httpStatus)
-                .body(new ExceptionDto(message));
+                .body(exceptionDto);
     }
 }

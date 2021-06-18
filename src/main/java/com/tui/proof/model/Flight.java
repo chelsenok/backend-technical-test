@@ -15,12 +15,12 @@ import java.util.UUID;
 public class Flight {
 
     private UUID uuid;
-    private UUID availabilityUuid;
     private String company;
     private String flightNumber;
     @JsonFormat(pattern = "YYYY-MM-dd")
     private LocalDate date;
     @JsonFormat(pattern = "HH:mm")
     private LocalTime time;
+    private Currency currency;
     private BigDecimal price;
 }
