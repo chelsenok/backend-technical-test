@@ -1,5 +1,6 @@
 package com.tui.proof.service;
 
+import com.tui.proof.exception.ForbiddenException;
 import com.tui.proof.exception.UnauthorizedException;
 import com.tui.proof.model.Role;
 import com.tui.proof.model.User;
@@ -10,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class AuthorizationService {
+public class SecurityService {
 
     private static final ThreadLocal<User> currentUser = new ThreadLocal<>();
 
@@ -29,6 +30,13 @@ public class AuthorizationService {
 
         currentUser.set(new User(role.get()));
         return true;
+    }
+
+    public void assertCurrentUserAdmin() {
+        User currentUser = getCurrentUserOrThrowUnauthorizedException();
+        if (!currentUser.getRole().equals(Role.ADMIN)) {
+            throw new ForbiddenException("Current user has no admin rights.");
+        }
     }
 
     public User getCurrentUser() {

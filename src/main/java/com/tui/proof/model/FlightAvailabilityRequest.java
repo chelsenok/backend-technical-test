@@ -1,4 +1,4 @@
-package com.tui.proof.model.request;
+package com.tui.proof.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;

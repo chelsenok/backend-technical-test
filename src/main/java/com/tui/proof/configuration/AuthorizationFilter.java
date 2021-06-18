@@ -1,6 +1,6 @@
 package com.tui.proof.configuration;
 
-import com.tui.proof.service.AuthorizationService;
+import com.tui.proof.service.SecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthorizationFilter implements Filter {
 
-    private final AuthorizationService authorizationService;
+    private final SecurityService securityService;
 
     @Value("${authorization.header}")
     private String authorizationHeader;
@@ -30,7 +30,7 @@ public class AuthorizationFilter implements Filter {
             throws ServletException, IOException {
         String authorizationToken = ((HttpServletRequest) servletRequest).getHeader(authorizationHeader);
 
-        if (!authorizationService.authenticate(authorizationToken)) {
+        if (!securityService.authenticate(authorizationToken)) {
             HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;

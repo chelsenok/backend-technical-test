@@ -1,6 +1,7 @@
 package com.tui.proof.configuration;
 
 import com.tui.proof.exception.ExceptionDto;
+import com.tui.proof.exception.ForbiddenException;
 import com.tui.proof.exception.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,11 @@ public class ErrorController {
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<ExceptionDto> unauthorizedException(UnauthorizedException exception) {
         return buildResponseEntity(exception.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<ExceptionDto> forbiddenException(ForbiddenException exception) {
+        return buildResponseEntity(exception.getMessage(), HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
