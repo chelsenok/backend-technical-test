@@ -2,7 +2,7 @@ package com.tui.proof.pubsub.subscriber;
 
 import com.tui.proof.model.Flight;
 import com.tui.proof.pubsub.Topic;
-import com.tui.proof.pubsub.message.GetAllFlightsMessage;
+import com.tui.proof.pubsub.message.GetFlightByUuidMessage;
 import com.tui.proof.pubsub.message.Message;
 import com.tui.proof.service.FlightService;
 import lombok.RequiredArgsConstructor;
@@ -13,20 +13,20 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GetAllFlightsSubscriberService extends SubscriberService {
+public class GetFlightByUuidSubscriberService extends SubscriberService {
 
     private final FlightService flightService;
 
     @Override
     public void onMessage(Message message) {
-        GetAllFlightsMessage getAllFlightsMessage = (GetAllFlightsMessage) message;
-        List<Flight> allFlights = flightService.getAllFlights();
-        getAllFlightsMessage.getFlights().addAll(allFlights);
-        super.onMessage(getAllFlightsMessage);
+        GetFlightByUuidMessage getFlightByUuidMessage = (GetFlightByUuidMessage) message;
+        Flight flight = flightService.getFlight(getFlightByUuidMessage.getFlightUuid());
+        getFlightByUuidMessage.setFlight(flight);
+        super.onMessage(getFlightByUuidMessage);
     }
 
     @Override
     public List<Topic> getTopics() {
-        return Collections.singletonList(Topic.GET_ALL_FLIGHTS);
+        return Collections.singletonList(Topic.GET_FLIGHT_BY_UUID);
     }
 }

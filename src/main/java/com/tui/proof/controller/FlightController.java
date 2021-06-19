@@ -36,14 +36,14 @@ public class FlightController {
     public ResponseEntity<List<PublishedMessage>> getAllFlights() {
         return ResponseEntity.accepted()
                 .header(HttpHeaders.LOCATION, messagesLocation)
-                .body(flightService.getAllFlights());
+                .body(flightService.publishGetAllFlights());
     }
 
     @GetMapping("/{uuid}")
     public ResponseEntity<List<PublishedMessage>> getFlight(@PathVariable UUID uuid) {
         return ResponseEntity.accepted()
                 .header(HttpHeaders.LOCATION, messagesLocation)
-                .body(flightService.getFlight(uuid));
+                .body(flightService.publishGetFlight(uuid));
     }
 
     @PostMapping("/search_availabilities")
