@@ -18,6 +18,9 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 
+/**
+ * Observer for processed messages from subscribers
+ */
 @Slf4j
 @Service
 public class ProcessedMessageService implements Observer {
@@ -27,6 +30,12 @@ public class ProcessedMessageService implements Observer {
     @Value("${api.event.processed-message.lifetime-minutes}")
     private int processedMessageLifetimeMinutes;
 
+    /**
+     * Lifecycle method called after subscriber notify certain service
+     *
+     * @param o   observable subscriber service
+     * @param arg notified message
+     */
     @Override
     public void update(Observable o, Object arg) {
         log.info("{} is notified by {} with object: {}", this.getClass().getSimpleName(), o.getClass().getSimpleName(), arg);
@@ -42,6 +51,9 @@ public class ProcessedMessageService implements Observer {
         }
     }
 
+    /**
+     * Scheduled procedure for cleaning processed message storage
+     */
     @Scheduled(fixedRateString = "${api.event.processed-message.check-rate-millis}")
     private void checkProcessedMessagesMap() {
         log.info("Checking processed message storage for cleaning up");
@@ -57,6 +69,13 @@ public class ProcessedMessageService implements Observer {
                 .forEach(PROCESSED_MESSAGES::remove);
     }
 
+    /**
+     * Find processed message by identity
+     *
+     * @param uuid identity
+     * @return found message
+     * @throws NotFoundException if there is no message by provided identity
+     */
     public Message get(UUID uuid) {
         log.info("Searching for message {}", uuid);
         Message message = PROCESSED_MESSAGES.get(uuid);

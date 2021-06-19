@@ -8,9 +8,17 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.Observable;
 
+/**
+ * Subscriber service
+ */
 @Slf4j
 public abstract class SubscriberService extends Observable {
 
+    /**
+     * Lifecycle method to process message fetched from the pub/sub queue.
+     *
+     * @param message message to be processed
+     */
     public void onMessage(Message message) {
         Status status = null;
         try {
@@ -27,7 +35,17 @@ public abstract class SubscriberService extends Observable {
         notifyObservers(message);
     }
 
+    /**
+     * Process message method
+     *
+     * @param message message to be processed
+     */
     protected abstract void processMessage(Message message);
 
+    /**
+     * Get topics on which certain subscriber is listening to
+     *
+     * @return list of subscribed topics
+     */
     public abstract List<Topic> getTopics();
 }

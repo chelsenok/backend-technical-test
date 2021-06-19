@@ -13,6 +13,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Parent class for all specific messages in pub/sub
+ */
 @Data
 @RequiredArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)

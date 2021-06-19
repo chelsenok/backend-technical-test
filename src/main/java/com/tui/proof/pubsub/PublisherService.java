@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Publish service
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -17,6 +20,13 @@ public class PublisherService {
 
     private final List<ChannelService> channels;
 
+    /**
+     * Publish message to the channel by specified topic
+     *
+     * @param topic topic of the channel
+     * @param props properties
+     * @return list of published messages
+     */
     public List<PublishedMessage> publish(Topic topic, Map<Object, Object> props) {
         return channels.stream()
                 .filter(channelService -> channelService.getTopic().equals(topic))

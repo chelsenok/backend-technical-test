@@ -9,6 +9,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.UUID;
 
+/**
+ * Published message model
+ */
 @Getter
 @RequiredArgsConstructor
 public class PublishedMessage {
