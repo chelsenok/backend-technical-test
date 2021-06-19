@@ -2,10 +2,13 @@ package com.tui.proof.controller;
 
 import com.tui.proof.model.Booking;
 import com.tui.proof.model.BookingRequest;
+import com.tui.proof.pubsub.message.PublishedMessage;
 import com.tui.proof.service.BookingService;
 import com.tui.proof.service.SecurityService;
 import com.tui.proof.validation.ValidationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,10 +32,15 @@ public class BookingController {
     private final SecurityService securityService;
     private final ValidationService validationService;
 
+    @Value("${api.v1.messages}")
+    private String messagesLocation;
+
     @PostMapping
-    public ResponseEntity<Booking> createBooking(@RequestBody BookingRequest bookingRequest) {
+    public ResponseEntity<List<PublishedMessage>> createBooking(@RequestBody BookingRequest bookingRequest) {
         validationService.validate(bookingRequest);
-        return ResponseEntity.ok(bookingService.createBooking(bookingRequest));
+        return ResponseEntity.accepted()
+                .header(HttpHeaders.LOCATION, messagesLocation)
+                .body(bookingService.publishCreateBooking(bookingRequest));
     }
 
     @GetMapping
