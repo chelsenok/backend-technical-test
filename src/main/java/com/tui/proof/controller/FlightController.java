@@ -1,5 +1,6 @@
 package com.tui.proof.controller;
 
+import com.tui.proof.controller.api.FlightApi;
 import com.tui.proof.model.FlightsAvailability;
 import com.tui.proof.model.FlightsAvailabilityRequest;
 import com.tui.proof.pubsub.message.PublishedMessage;
@@ -23,7 +24,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "${api.v1}/flights")
 @RequiredArgsConstructor
-public class FlightController {
+public class FlightController implements FlightApi {
 
     private final FlightService flightService;
     private final ValidationService validationService;
