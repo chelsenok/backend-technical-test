@@ -18,6 +18,9 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Interface for Flight OpenAPI description.
+ */
 @Tag(name = "availability-api (flight)", description = "REST API for working with flights")
 public interface FlightApi {
 

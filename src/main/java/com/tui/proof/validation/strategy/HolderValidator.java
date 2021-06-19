@@ -6,6 +6,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
+/**
+ * Holder validation strategy
+ */
 public class HolderValidator implements Validator<Holder> {
 
     private HolderValidator() {
@@ -45,6 +48,9 @@ public class HolderValidator implements Validator<Holder> {
         }
     }
 
+    /**
+     * BillPughSingleton pattern
+     */
     private static class BillPughSingleton {
         private static final HolderValidator HOLDER_VALIDATOR = new HolderValidator();
     }

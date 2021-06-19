@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Authorization filter
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -29,6 +32,15 @@ public class AuthorizationFilter implements Filter {
     @Value("#{'${api.authorization.urls}'.split(',')}")
     private List<String> authorizationUrls;
 
+    /**
+     * Doing filter with help of custom authorization process.
+     *
+     * @param servletRequest  servlet request
+     * @param servletResponse servlet response
+     * @param filterChain     filter chain
+     * @throws ServletException if something went wrong in the next filter chain
+     * @throws IOException      if something went wrong in the next filter chain
+     */
     @Override
     public void doFilter(ServletRequest servletRequest,
                          ServletResponse servletResponse,

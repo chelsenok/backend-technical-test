@@ -11,6 +11,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.List;
 
+/**
+ * Holder model
+ */
 @Data
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Holder {

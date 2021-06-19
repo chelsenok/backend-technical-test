@@ -4,6 +4,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/**
+ * Custom UnauthorizedException
+ */
 public class UnauthorizedException extends RuntimeException {
 
     public UnauthorizedException(final String message) {

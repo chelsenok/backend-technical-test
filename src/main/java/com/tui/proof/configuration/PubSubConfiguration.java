@@ -14,6 +14,9 @@ import java.util.Map;
 import java.util.Observer;
 import java.util.stream.Collectors;
 
+/**
+ * Configuration for pub/sub event architecture.
+ */
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
@@ -24,6 +27,9 @@ public class PubSubConfiguration {
     private final List<SubscriberService> subscribers;
     private final List<Observer> observers;
 
+    /**
+     * Registration of subscribers to the specific channels by topics.
+     */
     @PostConstruct
     public void registerSubscribers() {
         Map<Topic, ChannelService> channelsByTopics = channels.stream()
@@ -38,6 +44,9 @@ public class PubSubConfiguration {
         }
     }
 
+    /**
+     * Adding observers for the processed messages notification from subscribers.
+     */
     @PostConstruct
     public void addObservers() {
         for (SubscriberService subscriber : subscribers) {

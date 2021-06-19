@@ -14,6 +14,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
+/**
+ * Flight model
+ */
 @Data
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Flight {

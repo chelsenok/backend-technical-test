@@ -14,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.UUID;
 
+/**
+ * Interface for Message OpenAPI description.
+ */
 @Tag(name = "availability-api (message)", description = "REST API for working with messages")
 public interface MessageApi {
 

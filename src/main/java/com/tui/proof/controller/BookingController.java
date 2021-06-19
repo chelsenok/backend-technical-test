@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Booking REST API
+ */
 @Slf4j
 @RestController
 @RequestMapping(path = "${api.v1}/bookings")
@@ -37,6 +40,12 @@ public class BookingController implements BookingApi {
     @Value("${api.v1.messages}")
     private String messagesLocation;
 
+    /**
+     * Create booking query
+     *
+     * @param bookingRequest booking request body
+     * @return list of published messages to pub/sub
+     */
     @PostMapping
     public ResponseEntity<List<PublishedMessage>> createBooking(@RequestBody BookingRequest bookingRequest) {
         log.info("Create booking query: {}", bookingRequest);
@@ -46,6 +55,11 @@ public class BookingController implements BookingApi {
                 .body(bookingService.publishCreateBooking(bookingRequest));
     }
 
+    /**
+     * Get all bookings query for administrator
+     *
+     * @return list of published messages to pub/sub
+     */
     @GetMapping
     public ResponseEntity<List<PublishedMessage>> getAllBookings() {
         log.info("Get all bookings query...");
@@ -55,6 +69,12 @@ public class BookingController implements BookingApi {
                 .body(bookingService.publishGetAllBookings());
     }
 
+    /**
+     * Get booking by identity query
+     *
+     * @param uuid booking identity
+     * @return list of published messages to pub/sub
+     */
     @GetMapping("/{uuid}")
     public ResponseEntity<List<PublishedMessage>> getBooking(@PathVariable UUID uuid) {
         log.info("Get booking by uuid query: {}", uuid);
@@ -63,6 +83,12 @@ public class BookingController implements BookingApi {
                 .body(bookingService.publishGetBooking(uuid));
     }
 
+    /**
+     * Delete booking by identity query
+     *
+     * @param uuid booking identity
+     * @return list of published messages to pub/sub
+     */
     @DeleteMapping("/{uuid}")
     public ResponseEntity<List<PublishedMessage>> deleteBooking(@PathVariable UUID uuid) {
         log.info("Delete booking by uuid query: {}", uuid);
@@ -71,6 +97,12 @@ public class BookingController implements BookingApi {
                 .body(bookingService.publishDeleteBooking(uuid));
     }
 
+    /**
+     * Confirm booking by identity query
+     *
+     * @param uuid booking identity
+     * @return list of published messages to pub/sub
+     */
     @PostMapping("/{uuid}/confirm")
     public ResponseEntity<List<PublishedMessage>> confirmBooking(@PathVariable UUID uuid) {
         log.info("Confirm booking by uuid query: {}", uuid);
@@ -79,6 +111,13 @@ public class BookingController implements BookingApi {
                 .body(bookingService.publishConfirmBooking(uuid));
     }
 
+    /**
+     * Add flight to booking by availability
+     *
+     * @param uuid             booking identity
+     * @param availabilityUuid flight availability identity
+     * @return list of published messages to pub/sub
+     */
     @PutMapping("/{uuid}/flight")
     public ResponseEntity<List<PublishedMessage>> addFlightByAvailabilityUuid(@PathVariable UUID uuid,
                                                                               @RequestParam("availability_uuid") UUID availabilityUuid) {
@@ -88,6 +127,13 @@ public class BookingController implements BookingApi {
                 .body(bookingService.publishAddFlightByAvailabilityUuid(uuid, availabilityUuid));
     }
 
+    /**
+     * Delete flight from booking by flight
+     *
+     * @param uuid       booking identity
+     * @param flightUuid flight identity
+     * @return list of published messages to pub/sub
+     */
     @DeleteMapping("/{uuid}/flight/{flightUuid}")
     public ResponseEntity<List<PublishedMessage>> deleteFlight(@PathVariable UUID uuid,
                                                                @PathVariable UUID flightUuid) {

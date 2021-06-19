@@ -5,6 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
+/**
+ * FlightsAvailabilityRequest validation strategy
+ */
 public class FlightsAvailabilityValidator implements Validator<FlightsAvailabilityRequest> {
 
     private FlightsAvailabilityValidator() {
@@ -36,6 +39,9 @@ public class FlightsAvailabilityValidator implements Validator<FlightsAvailabili
         PaxesValidator.getInstance().validate(obj.getPaxes(), errorCollector);
     }
 
+    /**
+     * BillPughSingleton pattern
+     */
     private static class BillPughSingleton {
         private static final FlightsAvailabilityValidator FLIGHTS_AVAILABILITY_VALIDATOR_INSTANCE = new FlightsAvailabilityValidator();
     }

@@ -17,6 +17,9 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Interface for Booking OpenAPI description.
+ */
 @Tag(name = "availability-api (booking)", description = "REST API for working with bookings")
 public interface BookingApi {
 

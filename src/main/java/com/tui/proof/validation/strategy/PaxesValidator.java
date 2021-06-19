@@ -4,6 +4,9 @@ import com.tui.proof.model.Paxes;
 
 import java.util.List;
 
+/**
+ * Paxes validation strategy
+ */
 public class PaxesValidator implements Validator<Paxes> {
 
     private PaxesValidator() {
@@ -31,6 +34,9 @@ public class PaxesValidator implements Validator<Paxes> {
         }
     }
 
+    /**
+     * BillPughSingleton pattern
+     */
     private static class BillPughSingleton {
         private static final PaxesValidator PAXES_VALIDATOR = new PaxesValidator();
     }

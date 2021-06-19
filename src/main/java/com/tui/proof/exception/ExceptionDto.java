@@ -10,6 +10,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Custom ExceptionDto
+ */
 @Getter
 @Builder
 public class ExceptionDto {

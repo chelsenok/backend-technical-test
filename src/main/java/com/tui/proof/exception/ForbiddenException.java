@@ -4,6 +4,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/**
+ * Custom ForbiddenException
+ */
 public class ForbiddenException extends RuntimeException {
 
     public ForbiddenException(final String message) {

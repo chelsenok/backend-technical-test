@@ -19,6 +19,9 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+/**
+ * Flight availability service
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -29,6 +32,12 @@ public class FlightsAvailabilityService {
     @Value("${api.flight-availability.lifetime-seconds}")
     private int flightAvailabilityLifetimeSeconds;
 
+    /**
+     * Search availabilities by provided request params
+     *
+     * @param flightsAvailabilityRequest search params
+     * @return list of found availabilities
+     */
     public List<FlightsAvailability> searchFlightsAvailabilities(FlightsAvailabilityRequest flightsAvailabilityRequest) {
         List<Flight> flights = flightService.searchFlights(flightsAvailabilityRequest);
         return flights.parallelStream()
@@ -45,6 +54,12 @@ public class FlightsAvailabilityService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Assert that availability is still valid
+     *
+     * @param availabilityUuid identity of availability
+     * @throws ForbiddenException if availability is not valid
+     */
     public void assertFlightAvailability(UUID availabilityUuid) {
         if (!FLIGHTS_AVAILABILITIES_LIFETIME_MAP.containsKey(availabilityUuid)) {
             log.error("Flight availability was not found by {}", availabilityUuid);
@@ -52,6 +67,9 @@ public class FlightsAvailabilityService {
         }
     }
 
+    /**
+     * Scheduled procedure for cleaning flight availabilities by lifetime
+     */
     @Scheduled(fixedRate = 30_000)
     private void cleanFlightsAvailabilitiesLifetimeMap() {
         log.info("Cleaning flight availabilities storage....");

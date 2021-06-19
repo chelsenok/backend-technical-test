@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Flight REST API
+ */
 @Slf4j
 @RestController
 @RequestMapping(path = "${api.v1}/flights")
@@ -35,6 +38,11 @@ public class FlightController implements FlightApi {
     @Value("${api.v1.messages}")
     private String messagesLocation;
 
+    /**
+     * Get all flights query
+     *
+     * @return list of published messages to pub/sub
+     */
     @GetMapping
     public ResponseEntity<List<PublishedMessage>> getAllFlights() {
         log.info("Get all flights query...");
@@ -43,6 +51,12 @@ public class FlightController implements FlightApi {
                 .body(flightService.publishGetAllFlights());
     }
 
+    /**
+     * Get flight by identity query
+     *
+     * @param uuid flight identity
+     * @return list of published messages to pub/sub
+     */
     @GetMapping("/{uuid}")
     public ResponseEntity<List<PublishedMessage>> getFlight(@PathVariable UUID uuid) {
         log.info("Get flight by uuid query: {}", uuid);
@@ -51,6 +65,12 @@ public class FlightController implements FlightApi {
                 .body(flightService.publishGetFlight(uuid));
     }
 
+    /**
+     * Search flights query
+     *
+     * @param flightsAvailabilityRequest flight availability request body
+     * @return list of found flight availabilities
+     */
     @PostMapping("/search_availabilities")
     public ResponseEntity<List<FlightsAvailability>> searchFlightsAvailabilities(
             @RequestBody FlightsAvailabilityRequest flightsAvailabilityRequest) {

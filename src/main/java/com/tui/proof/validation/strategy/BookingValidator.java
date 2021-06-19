@@ -4,6 +4,9 @@ import com.tui.proof.model.BookingRequest;
 
 import java.util.List;
 
+/**
+ * BookingRequest validation strategy
+ */
 public class BookingValidator implements Validator<BookingRequest> {
 
     private BookingValidator() {
@@ -23,6 +26,9 @@ public class BookingValidator implements Validator<BookingRequest> {
         HolderValidator.getInstance().validate(obj.getHolder(), errorCollector);
     }
 
+    /**
+     * BillPughSingleton pattern
+     */
     private static class BillPughSingleton {
         private static final BookingValidator BOOKING_VALIDATOR_INSTANCE = new BookingValidator();
     }

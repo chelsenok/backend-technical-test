@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+/**
+ * Message REST API
+ */
 @Slf4j
 @RestController
 @RequestMapping(path = "${api.v1.messages}")
@@ -21,6 +24,12 @@ public class MessageController implements MessageApi {
 
     private final ProcessedMessageService processedMessageService;
 
+    /**
+     * Get message from processed messages storage by identity
+     *
+     * @param uuid identity
+     * @return found message
+     */
     @GetMapping("/{uuid}")
     public ResponseEntity<Message> getMessage(@PathVariable UUID uuid) {
         log.info("Get message by uuid query: {}", uuid);

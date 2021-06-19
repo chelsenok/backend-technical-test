@@ -15,10 +15,18 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Validation service.
+ */
 @Slf4j
 @Service
 public class ValidationService {
 
+    /**
+     * Validate object.
+     *
+     * @param obj object to validate
+     */
     public void validate(Object obj) {
         log.info("Validating obj: {}", obj);
         List<String> errorCollector = new ArrayList<>();
