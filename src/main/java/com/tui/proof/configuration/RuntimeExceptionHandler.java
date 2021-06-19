@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestControllerAdvice
-public class ErrorController {
+public class RuntimeExceptionHandler {
 
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<ExceptionDto> unauthorizedException(UnauthorizedException exception) {

@@ -22,7 +22,6 @@ public class GetFlightByUuidSubscriberService extends SubscriberService {
         GetFlightByUuidMessage getFlightByUuidMessage = (GetFlightByUuidMessage) message;
         Flight flight = flightService.getFlight(getFlightByUuidMessage.getFlightUuid());
         getFlightByUuidMessage.setFlight(flight);
-        super.onMessage(getFlightByUuidMessage);
     }
 
     @Override

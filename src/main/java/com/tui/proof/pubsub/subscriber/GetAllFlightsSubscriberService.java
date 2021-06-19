@@ -22,7 +22,6 @@ public class GetAllFlightsSubscriberService extends SubscriberService {
         GetAllFlightsMessage getAllFlightsMessage = (GetAllFlightsMessage) message;
         List<Flight> allFlights = flightService.getAllFlights();
         getAllFlightsMessage.getFlights().addAll(allFlights);
-        super.onMessage(getAllFlightsMessage);
     }
 
     @Override
