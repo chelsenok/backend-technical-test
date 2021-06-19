@@ -12,8 +12,8 @@ import java.util.UUID;
 public class GetFlightByUuidChannelService extends ChannelService {
 
     @Override
-    public Message composeMessage(Map<Object, Object> properties) {
-        return new GetFlightByUuidMessage(UUID.randomUUID(), (UUID) properties.get("uuid"));
+    public Message composeMessage(Topic topic, Map<Object, Object> properties) {
+        return new GetFlightByUuidMessage(UUID.randomUUID(), getTopic(), (UUID) properties.get("uuid"));
     }
 
     @Override

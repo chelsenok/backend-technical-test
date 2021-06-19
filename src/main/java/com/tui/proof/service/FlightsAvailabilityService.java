@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FlightsAvailabilityService {
 
-    private final static ConcurrentHashMap<UUID, Instant> FLIGHTS_AVAILABILITIES_LIFETIME_MAP = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<UUID, Instant> FLIGHTS_AVAILABILITIES_LIFETIME_MAP = new ConcurrentHashMap<>();
     private final FlightService flightService;
     @Value("${api.flight-availability.lifetime-seconds}")
     private int flightAvailabilityLifetimeSeconds;

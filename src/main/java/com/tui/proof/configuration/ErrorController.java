@@ -3,6 +3,7 @@ package com.tui.proof.configuration;
 import com.tui.proof.exception.BadRequestException;
 import com.tui.proof.exception.ExceptionDto;
 import com.tui.proof.exception.ForbiddenException;
+import com.tui.proof.exception.NotFoundException;
 import com.tui.proof.exception.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,11 @@ public class ErrorController {
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ExceptionDto> badRequestException(BadRequestException exception) {
         return buildResponseEntity(exception.getMessages(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ExceptionDto> notFoundException(NotFoundException exception) {
+        return buildResponseEntity(Collections.singletonList(exception.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(Exception.class)

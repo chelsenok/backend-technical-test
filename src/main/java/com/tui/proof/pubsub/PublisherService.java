@@ -20,6 +20,7 @@ public class PublisherService {
                 .filter(channelService -> channelService.getTopic().equals(topic))
                 .map(channelService -> new PublishedMessage(
                         channelService.sendMessage(props),
+                        topic,
                         channelService.getClass().getSimpleName()
                 ))
                 .collect(Collectors.toList());

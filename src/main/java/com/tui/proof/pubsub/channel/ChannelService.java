@@ -17,7 +17,7 @@ public abstract class ChannelService {
     private final ConcurrentLinkedQueue<Message> messageQueue = new ConcurrentLinkedQueue<>();
 
     public UUID sendMessage(Map<Object, Object> properties) {
-        Message message = composeMessage(properties);
+        Message message = composeMessage(getTopic(), properties);
         messageQueue.add(message);
         return message.getUuid();
     }
@@ -35,7 +35,7 @@ public abstract class ChannelService {
         }
     }
 
-    public abstract Message composeMessage(Map<Object, Object> properties);
+    public abstract Message composeMessage(Topic topic, Map<Object, Object> properties);
 
     public abstract Topic getTopic();
 }
