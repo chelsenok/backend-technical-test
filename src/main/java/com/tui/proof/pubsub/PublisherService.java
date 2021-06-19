@@ -1,6 +1,6 @@
-package com.tui.proof.service.event;
+package com.tui.proof.pubsub;
 
-import com.tui.proof.service.event.channel.ChannelService;
+import com.tui.proof.pubsub.channel.ChannelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

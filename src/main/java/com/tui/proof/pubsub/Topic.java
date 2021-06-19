@@ -1,4 +1,4 @@
-package com.tui.proof.service.event;
+package com.tui.proof.pubsub;
 
 public enum Topic {
     GET_ALL_FLIGHTS

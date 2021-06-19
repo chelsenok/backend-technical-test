@@ -1,7 +1,7 @@
-package com.tui.proof.service.event.subscriber;
+package com.tui.proof.pubsub.subscriber;
 
-import com.tui.proof.service.event.Topic;
-import com.tui.proof.service.event.message.Message;
+import com.tui.proof.pubsub.Topic;
+import com.tui.proof.pubsub.message.Message;
 
 import java.util.List;
 

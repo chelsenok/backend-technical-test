@@ -1,8 +1,8 @@
-package com.tui.proof.service.event.channel;
+package com.tui.proof.pubsub.channel;
 
-import com.tui.proof.service.event.Topic;
-import com.tui.proof.service.event.message.Message;
-import com.tui.proof.service.event.subscriber.SubscriberService;
+import com.tui.proof.pubsub.Topic;
+import com.tui.proof.pubsub.message.Message;
+import com.tui.proof.pubsub.subscriber.SubscriberService;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.ArrayList;

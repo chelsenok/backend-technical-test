@@ -1,8 +1,8 @@
-package com.tui.proof.service.event.channel;
+package com.tui.proof.pubsub.channel;
 
-import com.tui.proof.service.event.Topic;
-import com.tui.proof.service.event.message.GetAllFlightsMessage;
-import com.tui.proof.service.event.message.Message;
+import com.tui.proof.pubsub.Topic;
+import com.tui.proof.pubsub.message.GetAllFlightsMessage;
+import com.tui.proof.pubsub.message.Message;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

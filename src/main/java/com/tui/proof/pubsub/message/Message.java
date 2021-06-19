@@ -1,4 +1,4 @@
-package com.tui.proof.service.event.message;
+package com.tui.proof.pubsub.message;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
