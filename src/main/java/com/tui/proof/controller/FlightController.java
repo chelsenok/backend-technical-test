@@ -7,6 +7,8 @@ import com.tui.proof.service.FlightService;
 import com.tui.proof.service.FlightsAvailabilityService;
 import com.tui.proof.validation.ValidationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,14 +29,21 @@ public class FlightController {
     private final ValidationService validationService;
     private final FlightsAvailabilityService flightsAvailabilityService;
 
+    @Value("${api.v1.messages}")
+    private String messagesLocation;
+
     @GetMapping
     public ResponseEntity<List<PublishedMessage>> getAllFlights() {
-        return ResponseEntity.ok(flightService.getAllFlights());
+        return ResponseEntity.accepted()
+                .header(HttpHeaders.LOCATION, messagesLocation)
+                .body(flightService.getAllFlights());
     }
 
     @GetMapping("/{uuid}")
     public ResponseEntity<List<PublishedMessage>> getFlight(@PathVariable UUID uuid) {
-        return ResponseEntity.ok(flightService.getFlight(uuid));
+        return ResponseEntity.accepted()
+                .header(HttpHeaders.LOCATION, messagesLocation)
+                .body(flightService.getFlight(uuid));
     }
 
     @PostMapping("/search_availabilities")

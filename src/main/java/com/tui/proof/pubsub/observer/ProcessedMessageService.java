@@ -22,7 +22,7 @@ public class ProcessedMessageService implements Observer {
 
     private static final ConcurrentHashMap<UUID, Message> PROCESSED_MESSAGES = new ConcurrentHashMap<>();
 
-    @Value("${api.flight-availability.lifetime-minutes}")
+    @Value("${api.event.processed-message.lifetime-minutes}")
     private int processedMessageLifetimeMinutes;
 
     @Override

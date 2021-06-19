@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "${api.v1}/messages")
+@RequestMapping(path = "${api.v1.messages}")
 @RequiredArgsConstructor
 public class MessageController {
 

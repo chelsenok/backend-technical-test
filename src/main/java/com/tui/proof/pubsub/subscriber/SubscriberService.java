@@ -9,6 +9,7 @@ import java.util.Observable;
 public abstract class SubscriberService extends Observable {
 
     public void onMessage(Message message) {
+        setChanged();
         notifyObservers(message);
     }
 
