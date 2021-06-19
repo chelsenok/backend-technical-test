@@ -44,9 +44,11 @@ public class BookingController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Booking>> getAllBookings() {
+    public ResponseEntity<List<PublishedMessage>> getAllBookings() {
         securityService.assertCurrentUserAdmin();
-        return null;
+        return ResponseEntity.accepted()
+                .header(HttpHeaders.LOCATION, messagesLocation)
+                .body(bookingService.publishGetAllBookings());
     }
 
     @GetMapping("/{uuid}")

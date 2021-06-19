@@ -9,6 +9,7 @@ import com.tui.proof.utils.Stub;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,8 +23,17 @@ public class BookingService {
         return publisherService.publish(Topic.CREATE_BOOKING, Collections.singletonMap("booking_request", bookingRequest));
     }
 
+    public List<PublishedMessage> publishGetAllBookings() {
+        return publisherService.publish(Topic.GET_ALL_BOOKINGS, Collections.emptyMap());
+    }
+
     @Stub
     public Booking createBooking(BookingRequest bookingRequest) {
         return new Booking();
+    }
+
+    @Stub
+    public List<Booking> getAllBookings() {
+        return new ArrayList<>();
     }
 }
