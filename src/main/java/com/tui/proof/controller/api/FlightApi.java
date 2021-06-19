@@ -89,7 +89,6 @@ public interface FlightApi {
     })
     ResponseEntity<List<PublishedMessage>> getFlight(UUID uuid);
 
-
     @Operation(
             security = @SecurityRequirement(name = "availability-api-auth"),
             tags = "availability-api (flight)",

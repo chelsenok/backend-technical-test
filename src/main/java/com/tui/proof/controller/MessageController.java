@@ -1,5 +1,6 @@
 package com.tui.proof.controller;
 
+import com.tui.proof.controller.api.MessageApi;
 import com.tui.proof.pubsub.message.Message;
 import com.tui.proof.pubsub.observer.ProcessedMessageService;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +15,12 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "${api.v1.messages}")
 @RequiredArgsConstructor
-public class MessageController {
+public class MessageController implements MessageApi {
 
     private final ProcessedMessageService processedMessageService;
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<Message> getFlight(@PathVariable UUID uuid) {
+    public ResponseEntity<Message> getMessage(@PathVariable UUID uuid) {
         return ResponseEntity.ok(processedMessageService.get(uuid));
     }
 }
