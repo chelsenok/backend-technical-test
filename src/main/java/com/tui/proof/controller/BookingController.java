@@ -1,5 +1,6 @@
 package com.tui.proof.controller;
 
+import com.tui.proof.controller.api.BookingApi;
 import com.tui.proof.model.BookingRequest;
 import com.tui.proof.pubsub.message.PublishedMessage;
 import com.tui.proof.service.BookingService;
@@ -25,7 +26,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "${api.v1}/bookings")
 @RequiredArgsConstructor
-public class BookingController {
+public class BookingController implements BookingApi {
 
     private final BookingService bookingService;
     private final SecurityService securityService;

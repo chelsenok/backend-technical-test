@@ -3,6 +3,7 @@ package com.tui.proof.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -14,10 +15,14 @@ import java.time.LocalDate;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class FlightsAvailabilityRequest {
 
+    @Schema(example = "LGA")
     private String airportOrigin;
+    @Schema(example = "JFK")
     private String airportDestination;
+    @Schema(example = "2021-06-19")
     @JsonFormat(pattern = "YYYY-MM-dd")
     private LocalDate dateFrom;
+    @Schema(example = "2021-06-21")
     @JsonFormat(pattern = "YYYY-MM-dd")
     private LocalDate dateTo;
     private Paxes paxes;
