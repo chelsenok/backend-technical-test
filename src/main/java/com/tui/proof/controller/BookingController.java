@@ -1,6 +1,5 @@
 package com.tui.proof.controller;
 
-import com.tui.proof.model.Booking;
 import com.tui.proof.model.BookingRequest;
 import com.tui.proof.pubsub.message.PublishedMessage;
 import com.tui.proof.service.BookingService;
@@ -52,8 +51,10 @@ public class BookingController {
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<Booking> getBooking(@PathVariable UUID uuid) {
-        return null;
+    public ResponseEntity<List<PublishedMessage>> getBooking(@PathVariable UUID uuid) {
+        return ResponseEntity.accepted()
+                .header(HttpHeaders.LOCATION, messagesLocation)
+                .body(bookingService.publishGetBooking(uuid));
     }
 
     @DeleteMapping("/{uuid}")
@@ -63,7 +64,6 @@ public class BookingController {
 
     @PostMapping("/{uuid}/confirm")
     public ResponseEntity<List<PublishedMessage>> confirmBooking(@PathVariable UUID uuid) {
-        securityService.assertCurrentUserAdmin();
         return ResponseEntity.accepted()
                 .header(HttpHeaders.LOCATION, messagesLocation)
                 .body(bookingService.publishConfirmBooking(uuid));

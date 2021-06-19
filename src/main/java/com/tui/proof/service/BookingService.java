@@ -34,6 +34,10 @@ public class BookingService {
         return publisherService.publish(Topic.CONFIRM_BOOKING, Collections.singletonMap("uuid", uuid));
     }
 
+    public List<PublishedMessage> publishGetBooking(UUID uuid) {
+        return publisherService.publish(Topic.GET_BOOKING_BY_UUID, Collections.singletonMap("uuid", uuid));
+    }
+
     public void validateBooking(UUID uuid) {
         Booking booking = getBooking(uuid);
         booking.getFlightAvailabilities().stream()
