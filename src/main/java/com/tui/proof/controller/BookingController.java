@@ -62,8 +62,11 @@ public class BookingController {
     }
 
     @PostMapping("/{uuid}/confirm")
-    public ResponseEntity<Void> confirmBooking(@PathVariable UUID uuid) {
-        return null;
+    public ResponseEntity<List<PublishedMessage>> confirmBooking(@PathVariable UUID uuid) {
+        securityService.assertCurrentUserAdmin();
+        return ResponseEntity.accepted()
+                .header(HttpHeaders.LOCATION, messagesLocation)
+                .body(bookingService.publishConfirmBooking(uuid));
     }
 
     @PutMapping("/{uuid}/flight")

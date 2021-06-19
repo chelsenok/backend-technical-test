@@ -14,7 +14,7 @@ public class Booking {
 
     private UUID uuid;
     private Holder holder;
-    private List<UUID> flights = new ArrayList<>();
+    private List<FlightsAvailability> flightAvailabilities = new ArrayList<>();
 
     @Override
     public String toString() {

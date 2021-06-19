@@ -1,9 +1,11 @@
 package com.tui.proof.service;
 
+import com.tui.proof.exception.ForbiddenException;
 import com.tui.proof.model.Flight;
 import com.tui.proof.model.FlightsAvailability;
 import com.tui.proof.model.FlightsAvailabilityRequest;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.helpers.MessageFormatter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -40,7 +42,13 @@ public class FlightsAvailabilityService {
                 .collect(Collectors.toList());
     }
 
-    @Scheduled(fixedRate = 60_000)
+    public void assertFlightAvailability(UUID availabilityUuid) {
+        if (!FLIGHTS_AVAILABILITIES_LIFETIME_MAP.containsKey(availabilityUuid)) {
+            throw new ForbiddenException(MessageFormatter.format("Flight availability {} is not available", availabilityUuid).getMessage());
+        }
+    }
+
+    @Scheduled(fixedRate = 30_000)
     private void cleanFlightsAvailabilitiesLifetimeMap() {
         FLIGHTS_AVAILABILITIES_LIFETIME_MAP.entrySet().parallelStream()
                 .filter(entry -> Duration.between(entry.getValue(), Instant.now()).getSeconds() > flightAvailabilityLifetimeSeconds)
