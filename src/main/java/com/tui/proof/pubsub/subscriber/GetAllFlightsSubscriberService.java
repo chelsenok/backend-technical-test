@@ -18,7 +18,7 @@ public class GetAllFlightsSubscriberService extends SubscriberService {
     private final FlightService flightService;
 
     @Override
-    public void onMessage(Message message) {
+    protected void processMessage(Message message) {
         GetAllFlightsMessage getAllFlightsMessage = (GetAllFlightsMessage) message;
         List<Flight> allFlights = flightService.getAllFlights();
         getAllFlightsMessage.getFlights().addAll(allFlights);
