@@ -6,11 +6,13 @@ import com.tui.proof.pubsub.message.Message;
 import com.tui.proof.service.BookingService;
 import com.tui.proof.service.FlightsAvailabilityService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AddFlightToBookingSubscriberService extends SubscriberService {
@@ -21,7 +23,9 @@ public class AddFlightToBookingSubscriberService extends SubscriberService {
     @Override
     protected void processMessage(Message message) {
         AddFlightToBookingMessage addFlightToBookingMessage = (AddFlightToBookingMessage) message;
+        log.info("assertFlightAvailability with message: {}", message);
         flightsAvailabilityService.assertFlightAvailability(addFlightToBookingMessage.getAvailabilityUuid());
+        log.info("addFlightByAvailabilityUuid with message: {}", message);
         bookingService.addFlightByAvailabilityUuid(addFlightToBookingMessage.getBookingUuid(), addFlightToBookingMessage.getAvailabilityUuid());
     }
 

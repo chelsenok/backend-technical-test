@@ -2,6 +2,7 @@ package com.tui.proof.configuration;
 
 import com.tui.proof.service.SecurityService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class AuthorizationFilter implements Filter {
@@ -37,6 +39,7 @@ public class AuthorizationFilter implements Filter {
         boolean needAuthorization = authorizationUrls.stream().anyMatch(requestURI::contains);
 
         if (needAuthorization && !securityService.authenticate(authorizationToken)) {
+            log.warn("Authorization filter is going to throw unauthorized exception. Token was {}", authorizationToken);
             HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;

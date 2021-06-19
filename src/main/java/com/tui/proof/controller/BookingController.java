@@ -7,6 +7,7 @@ import com.tui.proof.service.BookingService;
 import com.tui.proof.service.SecurityService;
 import com.tui.proof.validation.ValidationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequestMapping(path = "${api.v1}/bookings")
 @RequiredArgsConstructor
@@ -37,6 +39,7 @@ public class BookingController implements BookingApi {
 
     @PostMapping
     public ResponseEntity<List<PublishedMessage>> createBooking(@RequestBody BookingRequest bookingRequest) {
+        log.info("Create booking query: {}", bookingRequest);
         validationService.validate(bookingRequest);
         return ResponseEntity.accepted()
                 .header(HttpHeaders.LOCATION, messagesLocation)
@@ -45,6 +48,7 @@ public class BookingController implements BookingApi {
 
     @GetMapping
     public ResponseEntity<List<PublishedMessage>> getAllBookings() {
+        log.info("Get all bookings query...");
         securityService.assertCurrentUserAdmin();
         return ResponseEntity.accepted()
                 .header(HttpHeaders.LOCATION, messagesLocation)
@@ -53,6 +57,7 @@ public class BookingController implements BookingApi {
 
     @GetMapping("/{uuid}")
     public ResponseEntity<List<PublishedMessage>> getBooking(@PathVariable UUID uuid) {
+        log.info("Get booking by uuid query: {}", uuid);
         return ResponseEntity.accepted()
                 .header(HttpHeaders.LOCATION, messagesLocation)
                 .body(bookingService.publishGetBooking(uuid));
@@ -60,6 +65,7 @@ public class BookingController implements BookingApi {
 
     @DeleteMapping("/{uuid}")
     public ResponseEntity<List<PublishedMessage>> deleteBooking(@PathVariable UUID uuid) {
+        log.info("Delete booking by uuid query: {}", uuid);
         return ResponseEntity.accepted()
                 .header(HttpHeaders.LOCATION, messagesLocation)
                 .body(bookingService.publishDeleteBooking(uuid));
@@ -67,6 +73,7 @@ public class BookingController implements BookingApi {
 
     @PostMapping("/{uuid}/confirm")
     public ResponseEntity<List<PublishedMessage>> confirmBooking(@PathVariable UUID uuid) {
+        log.info("Confirm booking by uuid query: {}", uuid);
         return ResponseEntity.accepted()
                 .header(HttpHeaders.LOCATION, messagesLocation)
                 .body(bookingService.publishConfirmBooking(uuid));
@@ -75,6 +82,7 @@ public class BookingController implements BookingApi {
     @PutMapping("/{uuid}/flight")
     public ResponseEntity<List<PublishedMessage>> addFlightByAvailabilityUuid(@PathVariable UUID uuid,
                                                                               @RequestParam("availability_uuid") UUID availabilityUuid) {
+        log.info("Add flight to booking query by uuid {} and availability uuid {}", uuid, availabilityUuid);
         return ResponseEntity.accepted()
                 .header(HttpHeaders.LOCATION, messagesLocation)
                 .body(bookingService.publishAddFlightByAvailabilityUuid(uuid, availabilityUuid));
@@ -83,6 +91,7 @@ public class BookingController implements BookingApi {
     @DeleteMapping("/{uuid}/flight/{flightUuid}")
     public ResponseEntity<List<PublishedMessage>> deleteFlight(@PathVariable UUID uuid,
                                                                @PathVariable UUID flightUuid) {
+        log.info("Delete flight from booking query by uuid {} and flight uuid {}", uuid, flightUuid);
         return ResponseEntity.accepted()
                 .header(HttpHeaders.LOCATION, messagesLocation)
                 .body(bookingService.publishDeleteFlightByUuid(uuid, flightUuid));

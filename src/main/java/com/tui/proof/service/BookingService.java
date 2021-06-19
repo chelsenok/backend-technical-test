@@ -8,6 +8,7 @@ import com.tui.proof.pubsub.Topic;
 import com.tui.proof.pubsub.message.PublishedMessage;
 import com.tui.proof.utils.Stub;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BookingService {
@@ -72,32 +74,39 @@ public class BookingService {
 
     @Stub
     public void confirmBooking(UUID uuid) {
+        log.warn("Stubbing for confirmBooking");
     }
 
     @Stub
     public Booking createBooking(BookingRequest bookingRequest) {
+        log.warn("Stubbing for createBooking");
         return new Booking();
     }
 
     @Stub
     public List<Booking> getAllBookings() {
+        log.warn("Stubbing for getAllBookings");
         return new ArrayList<>();
     }
 
     @Stub
     public Booking getBooking(UUID uuid) {
+        log.warn("Stubbing for getBooking");
         return new Booking();
     }
 
     @Stub
     public void deleteBooking(UUID uuid) {
+        log.warn("Stubbing for deleteBooking");
     }
 
     @Stub
     public void addFlightByAvailabilityUuid(UUID bookingUuid, UUID availabilityUuid) {
+        log.warn("Stubbing for addFlightByAvailabilityUuid");
     }
 
     @Stub
     public void deleteFlightByUuid(UUID bookingUuid, UUID flightUuid) {
+        log.warn("Stubbing for deleteFlightByUuid");
     }
 }

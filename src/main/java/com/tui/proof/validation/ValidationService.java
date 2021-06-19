@@ -9,15 +9,18 @@ import com.tui.proof.validation.strategy.BookingValidator;
 import com.tui.proof.validation.strategy.FlightsAvailabilityValidator;
 import com.tui.proof.validation.strategy.HolderValidator;
 import com.tui.proof.validation.strategy.PaxesValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class ValidationService {
 
     public void validate(Object obj) {
+        log.info("Validating obj: {}", obj);
         List<String> errorCollector = new ArrayList<>();
 
         if (obj instanceof Paxes) {

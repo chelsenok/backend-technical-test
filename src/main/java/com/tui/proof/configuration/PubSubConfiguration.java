@@ -4,6 +4,7 @@ import com.tui.proof.pubsub.Topic;
 import com.tui.proof.pubsub.channel.ChannelService;
 import com.tui.proof.pubsub.subscriber.SubscriberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.Observer;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 @ComponentScan("com.tui.proof.pubsub")
@@ -29,7 +31,9 @@ public class PubSubConfiguration {
 
         for (SubscriberService subscriber : subscribers) {
             for (Topic topic : subscriber.getTopics()) {
-                channelsByTopics.get(topic).registerSubscriber(subscriber);
+                ChannelService channel = channelsByTopics.get(topic);
+                channel.registerSubscriber(subscriber);
+                log.info("{} registered as subscriber to {}", subscriber.getClass().getSimpleName(), channel.getClass().getSimpleName());
             }
         }
     }
@@ -39,6 +43,7 @@ public class PubSubConfiguration {
         for (SubscriberService subscriber : subscribers) {
             for (Observer observer : observers) {
                 subscriber.addObserver(observer);
+                log.info("{} added as observer to {}", observer.getClass().getSimpleName(), subscriber.getClass().getSimpleName());
             }
         }
     }
