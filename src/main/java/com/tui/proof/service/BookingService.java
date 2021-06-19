@@ -39,6 +39,10 @@ public class BookingService {
         return publisherService.publish(Topic.GET_BOOKING_BY_UUID, Collections.singletonMap("uuid", uuid));
     }
 
+    public List<PublishedMessage> publishDeleteBooking(UUID uuid) {
+        return publisherService.publish(Topic.DELETE_BOOKING_BY_UUID, Collections.singletonMap("uuid", uuid));
+    }
+
     public List<PublishedMessage> publishAddFlightByAvailabilityUuid(UUID uuid, UUID availabilityUuid) {
         return publisherService.publish(
                 Topic.ADD_FLIGHT_TO_BOOKING,
@@ -83,6 +87,10 @@ public class BookingService {
     @Stub
     public Booking getBooking(UUID uuid) {
         return new Booking();
+    }
+
+    @Stub
+    public void deleteBooking(UUID uuid) {
     }
 
     @Stub
