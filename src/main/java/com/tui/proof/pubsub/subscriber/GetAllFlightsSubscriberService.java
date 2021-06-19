@@ -14,6 +14,7 @@ public class GetAllFlightsSubscriberService extends SubscriberService {
     @Override
     public void onMessage(Message message) {
         GetAllFlightsMessage getAllFlightsMessage = (GetAllFlightsMessage) message;
+        super.onMessage(getAllFlightsMessage);
     }
 
     @Override

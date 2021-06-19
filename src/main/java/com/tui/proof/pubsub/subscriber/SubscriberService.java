@@ -4,10 +4,13 @@ import com.tui.proof.pubsub.Topic;
 import com.tui.proof.pubsub.message.Message;
 
 import java.util.List;
+import java.util.Observable;
 
-public abstract class SubscriberService {
+public abstract class SubscriberService extends Observable {
 
-    public abstract void onMessage(Message message);
+    public void onMessage(Message message) {
+        notifyObservers(message);
+    }
 
     public abstract List<Topic> getTopics();
 }

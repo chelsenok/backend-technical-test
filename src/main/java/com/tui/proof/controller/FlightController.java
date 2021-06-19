@@ -1,8 +1,8 @@
 package com.tui.proof.controller;
 
-import com.tui.proof.model.Flight;
 import com.tui.proof.model.FlightsAvailability;
 import com.tui.proof.model.FlightsAvailabilityRequest;
+import com.tui.proof.pubsub.message.PublishedMessage;
 import com.tui.proof.service.FlightService;
 import com.tui.proof.service.FlightsAvailabilityService;
 import com.tui.proof.validation.ValidationService;
@@ -28,12 +28,12 @@ public class FlightController {
     private final FlightsAvailabilityService flightsAvailabilityService;
 
     @GetMapping
-    public ResponseEntity<List<Flight>> getAllFlights() {
+    public ResponseEntity<List<PublishedMessage>> getAllFlights() {
         return ResponseEntity.ok(flightService.getAllFlights());
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<Flight> getFlight(@PathVariable UUID uuid) {
+    public ResponseEntity<List<PublishedMessage>> getFlight(@PathVariable UUID uuid) {
         return ResponseEntity.ok(flightService.getFlight(uuid));
     }
 
