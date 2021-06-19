@@ -70,9 +70,11 @@ public class BookingController {
     }
 
     @PutMapping("/{uuid}/flight")
-    public ResponseEntity<Void> addFlightByAvailabilityUuid(@PathVariable UUID uuid,
-                                                            @RequestParam("availability_uuid") UUID availabilityUuid) {
-        return null;
+    public ResponseEntity<List<PublishedMessage>> addFlightByAvailabilityUuid(@PathVariable UUID uuid,
+                                                                              @RequestParam("availability_uuid") UUID availabilityUuid) {
+        return ResponseEntity.accepted()
+                .header(HttpHeaders.LOCATION, messagesLocation)
+                .body(bookingService.publishAddFlightByAvailabilityUuid(uuid, availabilityUuid));
     }
 
     @DeleteMapping("/{uuid}/flight/{flightUuid}")

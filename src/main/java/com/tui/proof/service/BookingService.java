@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +39,16 @@ public class BookingService {
         return publisherService.publish(Topic.GET_BOOKING_BY_UUID, Collections.singletonMap("uuid", uuid));
     }
 
+    public List<PublishedMessage> publishAddFlightByAvailabilityUuid(UUID uuid, UUID availabilityUuid) {
+        return publisherService.publish(
+                Topic.ADD_FLIGHT_TO_BOOKING,
+                new HashMap<Object, Object>() {{
+                    put("uuid", uuid);
+                    put("availability_uuid", availabilityUuid);
+                }}
+        );
+    }
+
     public void validateBooking(UUID uuid) {
         Booking booking = getBooking(uuid);
         booking.getFlightAvailabilities().stream()
@@ -62,5 +73,9 @@ public class BookingService {
     @Stub
     public Booking getBooking(UUID uuid) {
         return new Booking();
+    }
+
+    @Stub
+    public void addFlightByAvailabilityUuid(UUID bookingUuid, UUID availabilityUuid) {
     }
 }
