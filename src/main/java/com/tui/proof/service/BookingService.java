@@ -49,6 +49,16 @@ public class BookingService {
         );
     }
 
+    public List<PublishedMessage> publishDeleteFlightByUuid(UUID uuid, UUID flightUuid) {
+        return publisherService.publish(
+                Topic.ADD_FLIGHT_TO_BOOKING,
+                new HashMap<Object, Object>() {{
+                    put("uuid", uuid);
+                    put("flight_uuid", flightUuid);
+                }}
+        );
+    }
+
     public void validateBooking(UUID uuid) {
         Booking booking = getBooking(uuid);
         booking.getFlightAvailabilities().stream()
@@ -77,5 +87,9 @@ public class BookingService {
 
     @Stub
     public void addFlightByAvailabilityUuid(UUID bookingUuid, UUID availabilityUuid) {
+    }
+
+    @Stub
+    public void deleteFlightByUuid(UUID bookingUuid, UUID flightUuid) {
     }
 }

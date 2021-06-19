@@ -78,8 +78,10 @@ public class BookingController {
     }
 
     @DeleteMapping("/{uuid}/flight/{flightUuid}")
-    public ResponseEntity<Void> deleteFlight(@PathVariable UUID uuid,
-                                             @PathVariable UUID flightUuid) {
-        return null;
+    public ResponseEntity<List<PublishedMessage>> deleteFlight(@PathVariable UUID uuid,
+                                                               @PathVariable UUID flightUuid) {
+        return ResponseEntity.accepted()
+                .header(HttpHeaders.LOCATION, messagesLocation)
+                .body(bookingService.publishDeleteFlightByUuid(uuid, flightUuid));
     }
 }
