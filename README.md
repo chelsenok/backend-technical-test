@@ -31,6 +31,7 @@ So, I want to introduce here my approaches of solving business tasks in general:
 I like using ```org.hamcrest``` and ```doReturn().```-like constructions.
   
 - For implementing Pub/Sub event system in general I used Observer pattern. 
+  For imitating message queue I used @Scheduled procedures.
   I will try to be in time with creation of architectural diagram! You will see the picture below if I have time.
   
 - As for Docker I used docker-compose with volume for logs
