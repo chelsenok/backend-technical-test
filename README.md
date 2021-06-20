@@ -20,7 +20,9 @@ So, I want to introduce here my approaches of solving business tasks in general:
 - I moved all business properties to the configurable application.properties file
 
 - For unit testing I used Junit5 with SpringExtension, MockitoExtension and custom extension for simulating authorization. 
-I like using ```org.hamcrest``` and ```doReturn().```-like constructions.
+  I like using ```org.hamcrest``` and ```doReturn().```-like constructions.
+  Sorry I have no time to write tests for all classes. 
+  I chose the most different situations to show how flexible I am about writing different types of tests.
   
 - For implementing Pub/Sub event system in general I used Observer pattern. 
   For imitating message queue I used @Scheduled procedures.
