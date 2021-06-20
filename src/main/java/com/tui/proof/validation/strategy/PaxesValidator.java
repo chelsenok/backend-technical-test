@@ -32,6 +32,9 @@ public class PaxesValidator implements Validator<Paxes> {
         if (obj.getAdults() < 0) {
             errorCollector.add("count of adults can not be negative");
         }
+        if (obj.getInfants() == 0 && obj.getChildren() == 0 && obj.getAdults() == 0) {
+            errorCollector.add("all counters are equals to zero");
+        }
     }
 
     /**
