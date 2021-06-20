@@ -1,11 +1,3 @@
-## Summary
-
-TUI DX Backend technical Test
-
-The base project uses lombok, so you have to install it. You can use the following guide https://www.baeldung.com/lombok-ide
-             
-# README from Aliaksei
-
 Hi there! Thank you for this interesting test project! It was useful to solve such a task.
 I've remembered specific pattern usages and low level Java facts.
 
