@@ -11,9 +11,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @Data
 public class Paxes {
 
-    private short infants;
-    private short children;
-    private short adults;
+    private int infants;
+    private int children;
+    private int adults;
 
     @Override
     public String toString() {

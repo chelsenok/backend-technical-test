@@ -1,6 +1,6 @@
 package com.tui.proof.validation.strategy;
 
-import com.tui.proof.model.BookingRequest;
+import com.tui.proof.model.Paxes;
 import com.tui.proof.utils.RandomObjectFiller;
 import org.junit.jupiter.api.Test;
 
@@ -12,19 +12,19 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
 
-public class BookingValidatorTest {
+public class PaxesValidatorTest {
 
     @Test
     public void testNullValidation() {
         List<String> errors = new ArrayList<>();
-        BookingValidator.getInstance().validate(null, errors);
+        PaxesValidator.getInstance().validate(null, errors);
         assertThat(errors, is(not(empty())));
     }
 
     @Test
     public void testFailedValidation() {
         List<String> errors = new ArrayList<>();
-        BookingValidator.getInstance().validate(new BookingRequest(), errors);
+        PaxesValidator.getInstance().validate(new Paxes(), errors);
         assertThat(errors, is(not(empty())));
     }
 
@@ -32,7 +32,7 @@ public class BookingValidatorTest {
     public void testSuccessValidation() {
 
         List<String> errors = new ArrayList<>();
-        BookingValidator.getInstance().validate(RandomObjectFiller.createAndFill(BookingRequest.class), errors);
+        PaxesValidator.getInstance().validate(RandomObjectFiller.createAndFill(Paxes.class), errors);
         assertThat(errors, is(empty()));
     }
 }
