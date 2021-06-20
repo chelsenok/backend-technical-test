@@ -2,11 +2,14 @@ package com.tui.proof.controller;
 
 import com.tui.proof.exception.BadRequestException;
 import com.tui.proof.exception.ForbiddenException;
+import com.tui.proof.extension.AuthorizationExtension;
+import com.tui.proof.extension.Authorized;
 import com.tui.proof.service.BookingService;
 import com.tui.proof.service.SecurityService;
 import com.tui.proof.validation.ValidationService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,7 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -34,28 +36,27 @@ public class BookingControllerTest {
     private BookingService bookingService;
     @MockBean
     private SecurityService securityService;
+    @RegisterExtension
+    AuthorizationExtension authorizationExtension = new AuthorizationExtension(() -> securityService);
     @MockBean
     private ValidationService validationService;
 
     @Test
     public void testUnauthorized() throws Exception {
-        doReturn(false).when(securityService).authenticate(any());
-
         mockMvc.perform(get("/api/v1/bookings"))
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
+    @Authorized
     public void testAcceptedGetAllBookings() throws Exception {
-        doReturn(true).when(securityService).authenticate(any());
-
         mockMvc.perform(get("/api/v1/bookings"))
                 .andExpect(status().isAccepted());
     }
 
     @Test
+    @Authorized
     public void testGetAllBookingsByNotAdmin() throws Exception {
-        doReturn(true).when(securityService).authenticate(any());
         doThrow(new ForbiddenException("forbidden")).when(securityService).assertCurrentUserAdmin();
 
         mockMvc.perform(get("/api/v1/bookings"))
@@ -63,8 +64,8 @@ public class BookingControllerTest {
     }
 
     @Test
+    @Authorized
     public void testBadRequestWhileCreateBooking() throws Exception {
-        doReturn(true).when(securityService).authenticate(any());
         doThrow(new BadRequestException(Collections.singletonList("bad_request"))).when(validationService).validate(any());
 
         mockMvc
