@@ -1,5 +1,6 @@
 package com.tui.proof.service;
 
+import com.tui.proof.converter.BookingRequestToBookingConverter;
 import com.tui.proof.exception.ForbiddenException;
 import com.tui.proof.exception.NotFoundException;
 import com.tui.proof.model.Booking;
@@ -112,7 +113,7 @@ public class BookingService {
      *
      * @param booking booking to validate
      */
-    public void validateBooking(Booking booking) {
+    public void validateBookingForAvailabilities(Booking booking) {
         booking.getFlightAvailabilities().stream()
                 .map(FlightsAvailability::getAvailabilityUuid)
                 .forEach(flightsAvailabilityService::assertFlightAvailability);
@@ -128,13 +129,16 @@ public class BookingService {
     }
 
     /**
-     * Stubbed method
+     * Create new booking by request params
      *
-     * @return stub
+     * @param bookingRequest request params
+     * @return created booking
      */
     public Booking createBooking(BookingRequest bookingRequest) {
-        log.warn("Stubbing for createBooking");
-        return new Booking();
+        Booking booking = BookingRequestToBookingConverter.getInstance().convert(bookingRequest);
+        booking = bookingRepository.save(booking);
+        booking.setBookingStatus(BookingStatus.CREATED);
+        return booking;
     }
 
     /**

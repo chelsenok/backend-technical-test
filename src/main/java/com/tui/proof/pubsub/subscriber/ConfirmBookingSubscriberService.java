@@ -25,7 +25,7 @@ public class ConfirmBookingSubscriberService extends SubscriberService {
         log.info("getBooking with message: {}", message);
         Booking booking = bookingService.getBooking(confirmBookingMessage.getBookingUuid());
         log.info("validateBooking with message: {}", message);
-        bookingService.validateBooking(booking);
+        bookingService.validateBookingForAvailabilities(booking);
         log.info("assertBookingInCreatedStatus with message: {}", message);
         bookingService.assertBookingInCreatedStatus(booking);
         log.info("confirmBooking with message: {}", message);

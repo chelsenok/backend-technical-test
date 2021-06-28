@@ -13,7 +13,7 @@ public class PaxesValidator implements Validator<Paxes> {
     }
 
     public static PaxesValidator getInstance() {
-        return PaxesValidator.BillPughSingleton.PAXES_VALIDATOR;
+        return PaxesValidator.BillPughSingleton.VALIDATOR_INSTANCE;
     }
 
     @Override
@@ -41,6 +41,6 @@ public class PaxesValidator implements Validator<Paxes> {
      * BillPughSingleton pattern
      */
     private static class BillPughSingleton {
-        private static final PaxesValidator PAXES_VALIDATOR = new PaxesValidator();
+        private static final PaxesValidator VALIDATOR_INSTANCE = new PaxesValidator();
     }
 }

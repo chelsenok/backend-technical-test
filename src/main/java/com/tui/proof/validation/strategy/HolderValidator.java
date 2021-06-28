@@ -15,7 +15,7 @@ public class HolderValidator implements Validator<Holder> {
     }
 
     public static HolderValidator getInstance() {
-        return HolderValidator.BillPughSingleton.HOLDER_VALIDATOR;
+        return HolderValidator.BillPughSingleton.VALIDATOR_INSTANCE;
     }
 
     @Override
@@ -52,6 +52,6 @@ public class HolderValidator implements Validator<Holder> {
      * BillPughSingleton pattern
      */
     private static class BillPughSingleton {
-        private static final HolderValidator HOLDER_VALIDATOR = new HolderValidator();
+        private static final HolderValidator VALIDATOR_INSTANCE = new HolderValidator();
     }
 }

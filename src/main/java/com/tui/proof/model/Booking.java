@@ -1,5 +1,6 @@
 package com.tui.proof.model;
 
+import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -13,6 +14,7 @@ import java.util.UUID;
  * Booking model
  */
 @Data
+@Builder
 public class Booking {
 
     private UUID uuid;

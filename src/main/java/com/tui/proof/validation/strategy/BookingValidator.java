@@ -13,7 +13,7 @@ public class BookingValidator implements Validator<BookingRequest> {
     }
 
     public static BookingValidator getInstance() {
-        return BillPughSingleton.BOOKING_VALIDATOR_INSTANCE;
+        return BillPughSingleton.VALIDATOR_INSTANCE;
     }
 
     @Override
@@ -30,6 +30,6 @@ public class BookingValidator implements Validator<BookingRequest> {
      * BillPughSingleton pattern
      */
     private static class BillPughSingleton {
-        private static final BookingValidator BOOKING_VALIDATOR_INSTANCE = new BookingValidator();
+        private static final BookingValidator VALIDATOR_INSTANCE = new BookingValidator();
     }
 }

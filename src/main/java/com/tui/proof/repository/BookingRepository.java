@@ -47,4 +47,17 @@ public class BookingRepository {
         }
         return booking;
     }
+
+    /**
+     * Save booking into the storage
+     *
+     * @param booking booking to save
+     * @return saved booking
+     */
+    public Booking save(Booking booking) {
+        UUID key = UUID.randomUUID();
+        booking.setUuid(key);
+        BOOKING_STORAGE.put(key, booking);
+        return booking;
+    }
 }

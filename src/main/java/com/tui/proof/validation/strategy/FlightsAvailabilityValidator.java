@@ -14,7 +14,7 @@ public class FlightsAvailabilityValidator implements Validator<FlightsAvailabili
     }
 
     public static FlightsAvailabilityValidator getInstance() {
-        return BillPughSingleton.FLIGHTS_AVAILABILITY_VALIDATOR_INSTANCE;
+        return BillPughSingleton.VALIDATOR_INSTANCE;
     }
 
     @Override
@@ -43,6 +43,6 @@ public class FlightsAvailabilityValidator implements Validator<FlightsAvailabili
      * BillPughSingleton pattern
      */
     private static class BillPughSingleton {
-        private static final FlightsAvailabilityValidator FLIGHTS_AVAILABILITY_VALIDATOR_INSTANCE = new FlightsAvailabilityValidator();
+        private static final FlightsAvailabilityValidator VALIDATOR_INSTANCE = new FlightsAvailabilityValidator();
     }
 }
