@@ -1,5 +1,6 @@
 package com.tui.proof.pubsub.subscriber;
 
+import com.tui.proof.model.Booking;
 import com.tui.proof.pubsub.Topic;
 import com.tui.proof.pubsub.message.DeleteBookingByUuidMessage;
 import com.tui.proof.pubsub.message.Message;
@@ -21,8 +22,12 @@ public class DeleteBookingByUuidSubscriberService extends SubscriberService {
     @Override
     protected void processMessage(Message message) {
         DeleteBookingByUuidMessage deleteBookingByUuidMessage = (DeleteBookingByUuidMessage) message;
+        log.info("getBooking with message: {}", message);
+        Booking booking = bookingService.getBooking(deleteBookingByUuidMessage.getBookingUuid());
+        log.info("assertBookingInCreatedStatus with message: {}", message);
+        bookingService.assertBookingInCreatedStatus(booking);
         log.info("deleteBooking with message: {}", message);
-        bookingService.deleteBooking(deleteBookingByUuidMessage.getBookingUuid());
+        bookingService.deleteBooking(booking);
     }
 
     @Override

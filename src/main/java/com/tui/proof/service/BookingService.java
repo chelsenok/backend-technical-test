@@ -110,20 +110,21 @@ public class BookingService {
     /**
      * Validate booking by checking inner availabilities
      *
-     * @param uuid identity
+     * @param booking booking to validate
      */
-    public void validateBooking(UUID uuid) {
-        Booking booking = getBooking(uuid);
+    public void validateBooking(Booking booking) {
         booking.getFlightAvailabilities().stream()
                 .map(FlightsAvailability::getAvailabilityUuid)
                 .forEach(flightsAvailabilityService::assertFlightAvailability);
     }
 
     /**
-     * Stubbed method
+     * Confirm booking.
+     *
+     * @param booking booking to confirm
      */
-    public void confirmBooking(UUID uuid) {
-        log.warn("Stubbing for confirmBooking");
+    public void confirmBooking(Booking booking) {
+        booking.setBookingStatus(BookingStatus.CONFIRMED);
     }
 
     /**
@@ -170,20 +171,26 @@ public class BookingService {
     }
 
     /**
-     * Delete booking by uuid.
+     * Check does booking is in CREATED status
      *
-     * @param uuid booking uuid
+     * @param booking booking to check
      * @throws ForbiddenException if booking is not in CREATED status
-     * @throws NotFoundException  if booking was not found by provided uuid
      */
-    public void deleteBooking(UUID uuid) {
-        Booking booking = bookingRepository.findByUuid(uuid);
+    public void assertBookingInCreatedStatus(Booking booking) {
         if (booking.getBookingStatus() != BookingStatus.CREATED) {
-            log.warn("Booking {} can not be deleted. Is not in CREATED status", uuid);
+            log.warn("Booking {} can not be deleted. Is not in CREATED status", booking.getUuid());
             throw new ForbiddenException(
-                    MessageFormatter.format("Booking {} can not be deleted. Is not in CREATED status", uuid).getMessage()
+                    MessageFormatter.format("Booking {} can not be deleted. Is not in CREATED status", booking.getUuid()).getMessage()
             );
         }
+    }
+
+    /**
+     * Delete booking.
+     *
+     * @param booking booking to delete
+     */
+    public void deleteBooking(Booking booking) {
         booking.setBookingStatus(BookingStatus.DELETED);
     }
 }

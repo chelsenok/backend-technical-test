@@ -1,5 +1,6 @@
 package com.tui.proof.pubsub.subscriber;
 
+import com.tui.proof.model.Booking;
 import com.tui.proof.pubsub.Topic;
 import com.tui.proof.pubsub.message.ConfirmBookingMessage;
 import com.tui.proof.pubsub.message.Message;
@@ -21,10 +22,14 @@ public class ConfirmBookingSubscriberService extends SubscriberService {
     @Override
     protected void processMessage(Message message) {
         ConfirmBookingMessage confirmBookingMessage = (ConfirmBookingMessage) message;
+        log.info("getBooking with message: {}", message);
+        Booking booking = bookingService.getBooking(confirmBookingMessage.getBookingUuid());
         log.info("validateBooking with message: {}", message);
-        bookingService.validateBooking(confirmBookingMessage.getBookingUuid());
+        bookingService.validateBooking(booking);
+        log.info("assertBookingInCreatedStatus with message: {}", message);
+        bookingService.assertBookingInCreatedStatus(booking);
         log.info("confirmBooking with message: {}", message);
-        bookingService.confirmBooking(confirmBookingMessage.getBookingUuid());
+        bookingService.confirmBooking(booking);
     }
 
     @Override
