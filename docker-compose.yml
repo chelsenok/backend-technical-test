@@ -1,0 +1,11 @@
+version: "3.3"
+
+services:
+  tui:
+    container_name: tui
+    build: .
+    image: tui:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - ./log:/log
