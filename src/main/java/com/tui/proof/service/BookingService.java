@@ -6,6 +6,7 @@ import com.tui.proof.exception.NotFoundException;
 import com.tui.proof.model.Booking;
 import com.tui.proof.model.BookingRequest;
 import com.tui.proof.model.BookingStatus;
+import com.tui.proof.model.Flight;
 import com.tui.proof.model.FlightsAvailability;
 import com.tui.proof.pubsub.PublisherService;
 import com.tui.proof.pubsub.Topic;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -151,10 +153,22 @@ public class BookingService {
     }
 
     /**
-     * Stubbed method
+     * Delete flight from the booking
+     *
+     * @param booking booking to update
+     * @param flight  flight to be deleted from booking
+     * @throws ForbiddenException if there is no such flight in booking
      */
-    public void deleteFlightByUuid(UUID bookingUuid, UUID flightUuid) {
-        log.warn("Stubbing for deleteFlightByUuid");
+    public void deleteFlightByUuid(Booking booking, Flight flight) {
+        Optional<FlightsAvailability> availabilityToDelete = booking.getFlightAvailabilities().stream()
+                .filter(availability -> availability.getFlight().equals(flight))
+                .findFirst();
+        if (!availabilityToDelete.isPresent()) {
+            throw new ForbiddenException(
+                    MessageFormatter.format("There is no such flight {} in booking {}", flight.getUuid(), booking.getUuid()).getMessage()
+            );
+        }
+        booking.getFlightAvailabilities().remove(availabilityToDelete.get());
     }
 
     /**

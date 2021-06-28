@@ -31,6 +31,8 @@ public class AddFlightToBookingSubscriberService extends SubscriberService {
         flightsAvailabilityService.assertFlightAvailability(availability);
         log.info("getBooking with message: {}", message);
         Booking booking = bookingService.getBooking(addFlightToBookingMessage.getBookingUuid());
+        log.info("assertBookingInCreatedStatus with message: {}", message);
+        bookingService.assertBookingInCreatedStatus(booking);
         log.info("addFlightByAvailabilityUuid with message: {}", message);
         bookingService.addFlightByAvailabilityUuid(booking, availability);
     }
