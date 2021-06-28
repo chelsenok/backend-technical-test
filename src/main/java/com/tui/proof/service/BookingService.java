@@ -1,16 +1,20 @@
 package com.tui.proof.service;
 
+import com.tui.proof.exception.ForbiddenException;
+import com.tui.proof.exception.NotFoundException;
 import com.tui.proof.model.Booking;
 import com.tui.proof.model.BookingRequest;
+import com.tui.proof.model.BookingStatus;
 import com.tui.proof.model.FlightsAvailability;
 import com.tui.proof.pubsub.PublisherService;
 import com.tui.proof.pubsub.Topic;
 import com.tui.proof.pubsub.message.PublishedMessage;
+import com.tui.proof.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.helpers.MessageFormatter;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +29,7 @@ import java.util.UUID;
 public class BookingService {
 
     private final PublisherService publisherService;
+    private final BookingRepository bookingRepository;
     private final FlightsAvailabilityService flightsAvailabilityService;
 
     /**
@@ -133,33 +138,6 @@ public class BookingService {
 
     /**
      * Stubbed method
-     *
-     * @return stub
-     */
-    public List<Booking> getAllBookings() {
-        log.warn("Stubbing for getAllBookings");
-        return new ArrayList<>();
-    }
-
-    /**
-     * Stubbed method
-     *
-     * @return stub
-     */
-    public Booking getBooking(UUID uuid) {
-        log.warn("Stubbing for getBooking");
-        return new Booking();
-    }
-
-    /**
-     * Stubbed method
-     */
-    public void deleteBooking(UUID uuid) {
-        log.warn("Stubbing for deleteBooking");
-    }
-
-    /**
-     * Stubbed method
      */
     public void addFlightByAvailabilityUuid(UUID bookingUuid, UUID availabilityUuid) {
         log.warn("Stubbing for addFlightByAvailabilityUuid");
@@ -170,5 +148,42 @@ public class BookingService {
      */
     public void deleteFlightByUuid(UUID bookingUuid, UUID flightUuid) {
         log.warn("Stubbing for deleteFlightByUuid");
+    }
+
+    /**
+     * Get all bookings
+     *
+     * @return list of all bookings
+     */
+    public List<Booking> getAllBookings() {
+        return bookingRepository.findAll();
+    }
+
+    /**
+     * Find booking by identifier
+     *
+     * @return found booking
+     * @throws NotFoundException if booking was not found by provided uuid
+     */
+    public Booking getBooking(UUID uuid) {
+        return bookingRepository.findByUuid(uuid);
+    }
+
+    /**
+     * Delete booking by uuid.
+     *
+     * @param uuid booking uuid
+     * @throws ForbiddenException if booking is not in CREATED status
+     * @throws NotFoundException  if booking was not found by provided uuid
+     */
+    public void deleteBooking(UUID uuid) {
+        Booking booking = bookingRepository.findByUuid(uuid);
+        if (booking.getBookingStatus() != BookingStatus.CREATED) {
+            log.warn("Booking {} can not be deleted. Is not in CREATED status", uuid);
+            throw new ForbiddenException(
+                    MessageFormatter.format("Booking {} can not be deleted. Is not in CREATED status", uuid).getMessage()
+            );
+        }
+        booking.setBookingStatus(BookingStatus.DELETED);
     }
 }

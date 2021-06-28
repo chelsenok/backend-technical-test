@@ -17,6 +17,7 @@ public class Booking {
 
     private UUID uuid;
     private Holder holder;
+    private BookingStatus bookingStatus;
     private List<FlightsAvailability> flightAvailabilities = new ArrayList<>();
 
     @Override

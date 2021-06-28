@@ -30,12 +30,14 @@ public class FlightRepository {
     @PostConstruct
     private void initFlightsStorage() {
         for (int i = 0; i < ThreadLocalRandom.current().nextInt(100); i++) {
-            FLIGHTS_STORAGE.put(UUID.randomUUID(), new Flight());
+            Flight flight = new Flight();
+            flight.setUuid(UUID.randomUUID());
+            FLIGHTS_STORAGE.put(flight.getUuid(), flight);
         }
     }
 
     /**
-     * Get all flights from database.
+     * Get all flights from storage.
      *
      * @return list of all flights
      */
@@ -48,7 +50,7 @@ public class FlightRepository {
      *
      * @param uuid uuid of flight
      * @return found flight
-     * @throws NotFoundException if there is no flight by such uuid in database
+     * @throws NotFoundException if there is no flight by such uuid in storage
      */
     public Flight findByUuid(UUID uuid) {
         Flight flight = FLIGHTS_STORAGE.get(uuid);
