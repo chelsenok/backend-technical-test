@@ -17,7 +17,7 @@ public class LocaleConfig {
      * Set default timezone to UTC
      */
     @PostConstruct
-    public void init() {
+    private void init() {
         log.info("Set default timezone to UTC");
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }

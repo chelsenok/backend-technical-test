@@ -6,7 +6,6 @@ import com.tui.proof.model.FlightsAvailability;
 import com.tui.proof.pubsub.PublisherService;
 import com.tui.proof.pubsub.Topic;
 import com.tui.proof.pubsub.message.PublishedMessage;
-import com.tui.proof.utils.Stub;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -118,7 +117,6 @@ public class BookingService {
     /**
      * Stubbed method
      */
-    @Stub
     public void confirmBooking(UUID uuid) {
         log.warn("Stubbing for confirmBooking");
     }
@@ -128,7 +126,6 @@ public class BookingService {
      *
      * @return stub
      */
-    @Stub
     public Booking createBooking(BookingRequest bookingRequest) {
         log.warn("Stubbing for createBooking");
         return new Booking();
@@ -139,7 +136,6 @@ public class BookingService {
      *
      * @return stub
      */
-    @Stub
     public List<Booking> getAllBookings() {
         log.warn("Stubbing for getAllBookings");
         return new ArrayList<>();
@@ -150,7 +146,6 @@ public class BookingService {
      *
      * @return stub
      */
-    @Stub
     public Booking getBooking(UUID uuid) {
         log.warn("Stubbing for getBooking");
         return new Booking();
@@ -159,7 +154,6 @@ public class BookingService {
     /**
      * Stubbed method
      */
-    @Stub
     public void deleteBooking(UUID uuid) {
         log.warn("Stubbing for deleteBooking");
     }
@@ -167,7 +161,6 @@ public class BookingService {
     /**
      * Stubbed method
      */
-    @Stub
     public void addFlightByAvailabilityUuid(UUID bookingUuid, UUID availabilityUuid) {
         log.warn("Stubbing for addFlightByAvailabilityUuid");
     }
@@ -175,7 +168,6 @@ public class BookingService {
     /**
      * Stubbed method
      */
-    @Stub
     public void deleteFlightByUuid(UUID bookingUuid, UUID flightUuid) {
         log.warn("Stubbing for deleteFlightByUuid");
     }

@@ -1,16 +1,16 @@
 package com.tui.proof.service;
 
+import com.tui.proof.exception.NotFoundException;
 import com.tui.proof.model.Flight;
 import com.tui.proof.model.FlightsAvailabilityRequest;
 import com.tui.proof.pubsub.PublisherService;
 import com.tui.proof.pubsub.Topic;
 import com.tui.proof.pubsub.message.PublishedMessage;
-import com.tui.proof.utils.Stub;
+import com.tui.proof.repository.FlightRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -24,6 +24,7 @@ import java.util.UUID;
 public class FlightService {
 
     private final PublisherService publisherService;
+    private final FlightRepository flightRepository;
 
     /**
      * Publish GET_ALL_FLIGHTS message to pub/sub
@@ -44,35 +45,30 @@ public class FlightService {
     }
 
     /**
-     * Stubbed method
+     * Get all flights from database
      *
-     * @return stub
+     * @return all flights from database
      */
-    @Stub
     public List<Flight> getAllFlights() {
-        log.warn("Stubbing for getAllFlights");
-        return new ArrayList<>();
+        return flightRepository.findAll();
     }
 
     /**
-     * Stubbed method
+     * Find flight by identity
      *
-     * @return stub
+     * @return found flight
+     * @throws NotFoundException if there is no flight by provided uuid
      */
-    @Stub
     public Flight getFlight(UUID uuid) {
-        log.warn("Stubbing for getFlight");
-        return new Flight();
+        return flightRepository.findByUuid(uuid);
     }
 
     /**
-     * Stubbed method
+     * Search for a flights by provided request params
      *
-     * @return stub
+     * @return list of flights which are fit to the search params
      */
-    @Stub
     public List<Flight> searchFlights(FlightsAvailabilityRequest flightsAvailabilityRequest) {
-        log.warn("Stubbing for searchFlights");
-        return new ArrayList<>();
+        return flightRepository.searchAllByFlightsAvailabilityRequest(flightsAvailabilityRequest);
     }
 }

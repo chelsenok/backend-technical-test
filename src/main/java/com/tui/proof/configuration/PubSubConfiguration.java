@@ -31,7 +31,7 @@ public class PubSubConfiguration {
      * Registration of subscribers to the specific channels by topics.
      */
     @PostConstruct
-    public void registerSubscribers() {
+    private void registerSubscribers() {
         Map<Topic, ChannelService> channelsByTopics = channels.stream()
                 .collect(Collectors.toMap(ChannelService::getTopic, channel -> channel));
 
@@ -48,7 +48,7 @@ public class PubSubConfiguration {
      * Adding observers for the processed messages notification from subscribers.
      */
     @PostConstruct
-    public void addObservers() {
+    private void addObservers() {
         for (SubscriberService subscriber : subscribers) {
             for (Observer observer : observers) {
                 subscriber.addObserver(observer);
