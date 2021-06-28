@@ -17,10 +17,10 @@ import java.util.UUID;
 @Builder
 public class Booking {
 
+    private final List<FlightsAvailability> flightAvailabilities = new ArrayList<>();
     private UUID uuid;
     private Holder holder;
     private BookingStatus bookingStatus;
-    private List<FlightsAvailability> flightAvailabilities = new ArrayList<>();
 
     @Override
     public String toString() {

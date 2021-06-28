@@ -16,7 +16,7 @@ public class ValidationServiceTest {
 
     @Test
     public void testUnsupportedValidation() {
-        assertThrows(UnsupportedOperationException.class, () -> VALIDATION_SERVICE.validate(new Booking()));
+        assertThrows(UnsupportedOperationException.class, () -> VALIDATION_SERVICE.validate(Booking.builder().build()));
     }
 
     @Test

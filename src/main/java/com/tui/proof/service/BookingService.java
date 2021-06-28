@@ -114,8 +114,7 @@ public class BookingService {
      * @param booking booking to validate
      */
     public void validateBookingForAvailabilities(Booking booking) {
-        booking.getFlightAvailabilities().stream()
-                .map(FlightsAvailability::getAvailabilityUuid)
+        booking.getFlightAvailabilities()
                 .forEach(flightsAvailabilityService::assertFlightAvailability);
     }
 
@@ -142,10 +141,13 @@ public class BookingService {
     }
 
     /**
-     * Stubbed method
+     * Add flight availability to the booking
+     *
+     * @param booking      booking to update
+     * @param availability availability to be added in booking
      */
-    public void addFlightByAvailabilityUuid(UUID bookingUuid, UUID availabilityUuid) {
-        log.warn("Stubbing for addFlightByAvailabilityUuid");
+    public void addFlightByAvailabilityUuid(Booking booking, FlightsAvailability availability) {
+        booking.getFlightAvailabilities().add(availability);
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.tui.proof.pubsub.subscriber;
 
+import com.tui.proof.model.Booking;
+import com.tui.proof.model.FlightsAvailability;
 import com.tui.proof.pubsub.Topic;
 import com.tui.proof.pubsub.message.AddFlightToBookingMessage;
 import com.tui.proof.pubsub.message.Message;
@@ -23,10 +25,14 @@ public class AddFlightToBookingSubscriberService extends SubscriberService {
     @Override
     protected void processMessage(Message message) {
         AddFlightToBookingMessage addFlightToBookingMessage = (AddFlightToBookingMessage) message;
+        log.info("getFlightAvailability with message: {}", message);
+        FlightsAvailability availability = flightsAvailabilityService.getFlightAvailability(addFlightToBookingMessage.getAvailabilityUuid());
         log.info("assertFlightAvailability with message: {}", message);
-        flightsAvailabilityService.assertFlightAvailability(addFlightToBookingMessage.getAvailabilityUuid());
+        flightsAvailabilityService.assertFlightAvailability(availability);
+        log.info("getBooking with message: {}", message);
+        Booking booking = bookingService.getBooking(addFlightToBookingMessage.getBookingUuid());
         log.info("addFlightByAvailabilityUuid with message: {}", message);
-        bookingService.addFlightByAvailabilityUuid(addFlightToBookingMessage.getBookingUuid(), addFlightToBookingMessage.getAvailabilityUuid());
+        bookingService.addFlightByAvailabilityUuid(booking, availability);
     }
 
     @Override
