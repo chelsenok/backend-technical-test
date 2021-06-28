@@ -9,7 +9,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
@@ -32,9 +31,7 @@ public class Flight {
     @Schema(example = "09:15")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime time;
-    private Currency currency;
-    @Schema(example = "150.35")
-    private BigDecimal price;
+    private Monetary price;
 
     @Override
     public String toString() {
